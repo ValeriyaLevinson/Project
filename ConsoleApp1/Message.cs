@@ -16,18 +16,18 @@ namespace ConsoleApp1
 
     public class Message
     {
-        protected Oprtype operationType;
         protected Msgtype messageType;
+        protected Oprtype operationType;
         protected string date;
 
-        public Message(Oprtype operationType, Msgtype messageType, string date)
+        public Message( Msgtype messageType, Oprtype operationType,string date)
         {
             this.operationType = operationType;
             this.messageType = messageType;
             this.date = date;
 
         }
-        
+
         public Oprtype OperationType1
         {
             get => operationType;
@@ -45,5 +45,40 @@ namespace ConsoleApp1
             get => date;
             set => date = value;
         }
+
+        public virtual string Print()
+        {
+            string toPrint = "";
+            
+            if ( messageType == Msgtype.Request)
+            {
+                toPrint += "Request ";
+            }
+            else
+            {
+                toPrint += "Answer ";
+            }
+            
+            switch (operationType)
+            {
+                case Oprtype.Classification:
+                    toPrint += "Classification ";
+                    break;
+                
+                case Oprtype.StartCommunication:
+                    toPrint += " StartCommunication ";
+                    break;
+                
+                case Oprtype.EndCommunication:
+                    toPrint += " EndCommunication ";
+                    break;
+                
+            }
+
+            toPrint += date;
+
+            return toPrint;
+        }
+    
     }
 }

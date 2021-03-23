@@ -1,4 +1,4 @@
-﻿using System;
+﻿
 using System;
 using Newtonsoft.Json;
 using System.IO;
@@ -7,28 +7,37 @@ using System.Linq;
 using System.Web;
 using Newtonsoft.Json.Linq;
 
-
-
 namespace ConsoleApp1
 {
     
     //The class reads the messages from the file and inserts the information into the data structure
-    public class GetmsgFromfile
+     class GetmsgFromfile
     {
         private string JsonString;
         private MyJsonTypes Allobj;
+        private Database dbMessages;
 
         //allobj suppose to contain all the json info in list of MyJsonType
         public GetmsgFromfile()
         {
             this.JsonString = File.ReadAllText( @"C:\Users\valer\Desktop\Messages.json");
             this.Allobj = JsonConvert.DeserializeObject<MyJsonTypes>(JsonString);
+            this.dbMessages = new Database();
         }
         
         // the function creates the msgs from allobj and insert to the data structure
         public void CreateandInsertmsg()
         {
+            Message MsgAdd;
+            Status st;
+            Msgprovider provider ;
             
+            for (int i = 0; i < Allobj.Objs.Count; i++)
+            {
+                provider = new Msgprovider(Allobj.Objs[i].MymessageType, Allobj.Objs[i].MyoperationType,
+                    Allobj.Objs[i].Mytime, Allobj.Objs[i].MySubDocument);
+                st = dbMessages.add(provider.createMessage());
+            }
             
         }
         

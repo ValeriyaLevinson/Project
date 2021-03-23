@@ -9,8 +9,8 @@
         // -1 - no confirmation code
         private int ConfirmCode;
 
-        public Msganswer(Oprtype operationType, Msgtype messageType, string date, int errorCode, int confirmCode) 
-            : base(operationType, messageType, date)
+        public Msganswer( Msgtype messageType, Oprtype operationType,string date, int errorCode, int confirmCode) 
+            : base( messageType, operationType, date)
         {
             this.ErrorCode = errorCode;
             this.ConfirmCode = confirmCode;
@@ -27,6 +27,17 @@
             get => ConfirmCode;
             set => ConfirmCode = value;
         }
-
+        
+        public override string Print()
+        {
+            string str = base.Print() + "\nerror code: " ;
+            str +=  ErrorCode.ToString() ;
+            str +=  "\nConfirmCode code: " ;
+            str += ConfirmCode.ToString() ;
+ 
+            
+ 
+            return str;
+        }
     }
 }

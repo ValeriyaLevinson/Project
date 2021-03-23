@@ -10,9 +10,9 @@
         private int urgency;
         
         
-        public Msgrequest(Oprtype operationType, Msgtype messageType, string date,
+        public Msgrequest( Msgtype messageType, Oprtype operationType , string date,
                             int classification, int urgency) 
-                            : base( operationType,  messageType,  date)
+                            : base( messageType, operationType,  date)
         {
             this.classification = classification;
             this.urgency = urgency;
@@ -28,6 +28,18 @@
         {
             get => urgency;
             set => urgency = value;
+        }
+        
+        public override string Print()
+        {
+            string str = base.Print() + "\nerror code: " ;
+            str += classification.ToString() ;
+            str +=  "\nConfirmCode code: " ;
+            str +=  urgency.ToString() ;
+ 
+            
+ 
+            return str;
         }
     }
 }
